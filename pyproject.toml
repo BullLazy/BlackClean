@@ -1,0 +1,46 @@
+[project]
+name = "blackclean"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "BullLazy", email = "karapinarahmet33@gmail.com" }
+]
+requires-python = ">=3.14"
+dependencies = [
+    "fastapi",
+    "mutagen>=1.47.0",
+    "pillow>=12.3.0",
+    "pydantic-core>=2.49.0,<2.50.0",
+    "python-multipart>=0.0.32",
+    "uvicorn>=0.54.0",
+]
+
+[project.scripts]
+blackclean = "blackclean.cli:main"
+
+[build-system]
+requires = ["uv_build>=0.12.21,<0.13.0"]
+build-backend = "uv_build"
+
+[tool.uv.sources]
+pydantic-core = [
+    { index = "android", marker = "sys_platform == 'android'" },
+    { index = "pypi", marker = "sys_platform != 'android'" },
+]
+
+[[tool.uv.index]]
+name = "android"
+url = "https://eutalix.github.io/android-pydantic-core/"
+explicit = true
+
+[[tool.uv.index]]
+name = "pypi"
+url = "https://pypi.org/simple"
+explicit = true
+
+[dependency-groups]
+dev = [
+    "httpx>=0.28.1",
+    "pytest>=9.1.1",
+]

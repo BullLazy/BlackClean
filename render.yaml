@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: blackclean
+    runtime: python
+    plan: free
+    region: frankfurt
+    autoDeployTrigger: commit
+    buildCommand: uv sync --locked --no-dev
+    startCommand: uv run uvicorn blackclean.main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /
